@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Plugin Validation Script
-# This script validates plugin directories and .claude-plugin files in the plugins/ directory
+# This script validates plugin directories and .claude-plugin folders in the plugins/ directory
 
 set -e
 
@@ -33,10 +33,19 @@ for plugin_dir in "$PLUGINS_DIR"/*/; do
     
     echo "📦 Validating: $plugin_name"
     
-    # Check if .claude-plugin file exists
-    plugin_file="$plugin_dir/.claude-plugin"
+    # Check if .claude-plugin directory and plugin.json file exist
+    plugin_config_dir="$plugin_dir/.claude-plugin"
+    plugin_file="$plugin_config_dir/plugin.json"
+    
+    if [ ! -d "$plugin_config_dir" ]; then
+        echo "  ❌ Missing .claude-plugin directory"
+        ((ERRORS++))
+        echo ""
+        continue
+    fi
+    
     if [ ! -f "$plugin_file" ]; then
-        echo "  ❌ Missing .claude-plugin file"
+        echo "  ❌ Missing plugin.json file in .claude-plugin directory"
         ((ERRORS++))
         echo ""
         continue
@@ -44,7 +53,7 @@ for plugin_dir in "$PLUGINS_DIR"/*/; do
     
     # Check if file is valid JSON
     if ! jq empty "$plugin_file" 2>/dev/null; then
-        echo "  ❌ Invalid JSON syntax in .claude-plugin"
+        echo "  ❌ Invalid JSON syntax in plugin.json"
         ((ERRORS++))
         echo ""
         continue
@@ -69,10 +78,10 @@ for plugin_dir in "$PLUGINS_DIR"/*/; do
         echo "  ⚠️  Warning: Version should follow semantic versioning (X.Y.Z)"
     fi
     
-    # Check if plugin name in .claude-plugin matches directory name
+    # Check if plugin name in plugin.json matches directory name
     plugin_metadata_name=$(jq -r '.name' "$plugin_file")
     if [ "$plugin_name" != "$plugin_metadata_name" ]; then
-        echo "  ⚠️  Warning: Directory name should match plugin name in .claude-plugin ('$plugin_metadata_name')"
+        echo "  ⚠️  Warning: Directory name should match plugin name in plugin.json ('$plugin_metadata_name')"
     fi
     
     # Check for required subdirectories

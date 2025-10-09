@@ -15,7 +15,8 @@ This marketplace follows the Claude plugin marketplace format:
 - `marketplace.json` - Marketplace metadata and configuration
 - `plugins/` - Directory containing individual plugin directories
 - Each plugin is a directory containing:
-  - `.claude-plugin` - Plugin metadata (JSON)
+  - `.claude-plugin/` - Plugin configuration directory
+    - `plugin.json` - Plugin metadata (JSON)
   - `hooks/` - Lifecycle hooks
   - `agents/` - Agent definitions
   - `commands/` - Custom commands
@@ -44,13 +45,14 @@ To add your plugin to this marketplace:
 3. Create the required structure:
    ```
    plugins/your-plugin-name/
-   ├── .claude-plugin      # Plugin metadata
-   ├── hooks/              # Lifecycle hooks
-   ├── agents/             # Agent definitions
-   └── commands/           # Custom commands
+   ├── .claude-plugin/         # Plugin configuration directory
+   │   └── plugin.json         # Plugin metadata
+   ├── hooks/                  # Lifecycle hooks
+   ├── agents/                 # Agent definitions
+   └── commands/               # Custom commands
    ```
 
-4. Fill in your `.claude-plugin` file with plugin details:
+4. Fill in your `.claude-plugin/plugin.json` file with plugin details:
 
 ```json
 {

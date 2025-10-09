@@ -10,15 +10,16 @@ Each plugin is organized as a directory with the following structure:
 
 ```
 plugin-name/
-├── .claude-plugin      # Plugin metadata (JSON)
-├── hooks/              # Lifecycle hooks
-├── agents/             # Agent definitions
-└── commands/           # Custom commands
+├── .claude-plugin/         # Plugin configuration directory
+│   └── plugin.json         # Plugin metadata (JSON)
+├── hooks/                  # Lifecycle hooks
+├── agents/                 # Agent definitions
+└── commands/               # Custom commands
 ```
 
-## Plugin Metadata (.claude-plugin)
+## Plugin Metadata (.claude-plugin/plugin.json)
 
-The `.claude-plugin` file contains the plugin metadata in JSON format with the following structure:
+The `.claude-plugin` directory contains a `plugin.json` file with the plugin metadata in JSON format with the following structure:
 
 ### Required Fields
 
@@ -68,12 +69,12 @@ The `commands/` directory contains custom commands that users can invoke to perf
 Plugin directories should be named using the plugin's unique identifier:
 - Format: `{name}/`
 - Example: `example-calculator/` for a plugin named "example-calculator"
-- The `.claude-plugin` file inside should contain the same name
+- The `plugin.json` file inside `.claude-plugin/` should contain the same name
 
 ## Validation
 
 Before submitting, ensure your plugin:
-1. Has a valid `.claude-plugin` file with proper JSON syntax
+1. Has a valid `.claude-plugin/` directory with a `plugin.json` file containing proper JSON syntax
 2. Contains all required fields in the metadata
 3. Uses semantic versioning
 4. Has a unique name (not already in use)
@@ -83,7 +84,7 @@ Before submitting, ensure your plugin:
 ## Submission Process
 
 1. Create a new directory in this folder with your plugin name
-2. Add the `.claude-plugin` metadata file
+2. Add the `.claude-plugin/` directory with a `plugin.json` metadata file
 3. Create the hooks/, agents/, and commands/ subdirectories
 4. Follow the schema and naming conventions
 5. Test your plugin structure

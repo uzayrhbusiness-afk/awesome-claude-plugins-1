@@ -18,7 +18,7 @@ Thank you for your interest in contributing to the Awesome Claude Plugins market
    - Follow the plugin structure documented in `plugins/README.md`
 
 3. **Fill in Plugin Details**
-   - Edit the `.claude-plugin` file with your plugin metadata
+   - Edit the `.claude-plugin/plugin.json` file with your plugin metadata
    - Provide accurate and complete information
    - Use clear, concise descriptions
    - Ensure your plugin repository is publicly accessible
@@ -29,7 +29,7 @@ Thank you for your interest in contributing to the Awesome Claude Plugins market
    - Add custom commands in the `commands/` directory as needed
 
 5. **Validate Your Submission**
-   - Verify the `.claude-plugin` file has valid JSON syntax
+   - Verify the `.claude-plugin/plugin.json` file has valid JSON syntax
    - Verify all required fields are present
    - Ensure your plugin name is unique
    - Run `./validate-plugins.sh` to check your plugin structure
@@ -65,13 +65,14 @@ Each plugin must follow this directory structure:
 
 ```
 your-plugin-name/
-├── .claude-plugin      # Plugin metadata (JSON)
-├── hooks/              # Lifecycle hooks
-├── agents/             # Agent definitions
-└── commands/           # Custom commands
+├── .claude-plugin/         # Plugin configuration directory
+│   └── plugin.json         # Plugin metadata (JSON)
+├── hooks/                  # Lifecycle hooks
+├── agents/                 # Agent definitions
+└── commands/               # Custom commands
 ```
 
-The `.claude-plugin` file must contain:
+The `.claude-plugin/plugin.json` file must contain:
 
 ```json
 {
@@ -92,7 +93,7 @@ For more examples, see the [official Claude Code plugins](https://github.com/ant
 If you maintain a plugin and need to update its information:
 
 1. Fork the repository
-2. Update your plugin's `.claude-plugin` file in the `plugins/{your-plugin-name}/` directory
+2. Update your plugin's `.claude-plugin/plugin.json` file in the `plugins/{your-plugin-name}/` directory
 3. Update any hooks, agents, or commands as needed
 4. Increment the version number according to semantic versioning
 5. Submit a pull request with the changes
